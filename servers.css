@@ -1,0 +1,105 @@
+@layer layout {
+    .servers {
+        grid-area: servers;
+        background-color: var(--bg-color-darker);
+        display: flex;
+        flex-direction: column;
+        gap: .5rem;
+        padding: .75rem;
+        overflow-y: auto;
+    }
+}
+
+@layer components {
+
+    .server {
+        --border-radius: 1.5rem;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 3rem;
+        width: 3rem;
+        flex-shrink: 0;
+        background-color: var(--bg-color);
+        color: var(--foreground-color);
+        text-transform: uppercase;
+        position: relative;
+
+        &::before {
+            content: "";
+            position: absolute;
+            left: -.75rem;
+            scale: 0;
+            border-top-right-radius: .25rem;
+            border-bottom-right-radius: .25rem;
+            background-color: var(--foreground-color-light);
+            width: .25rem;
+            height: 1.5rem;
+            transition-property: height scale;
+            transition-duration: .15s;
+            transform-origin: left center;
+
+            @media (prefers-reduced-motion: reduce) {
+                transition: none;
+            }
+        }
+
+        &.active,
+        &:focus-within,
+        &:hover {
+            background-color: var(--accent-color);
+            color: var(--accent-color-foreground);
+
+            --border-radius: 1rem;
+
+            &::before {
+                scale: 1;
+            }
+        }
+
+
+        &.with-new-messages:not(.active):not(:hover)::before {
+            height: .5rem;
+            scale: 1;
+        }
+
+        &.active::before {
+            height: 2.5rem;
+        }
+
+        &[data-notification-count]::after {
+            content: attr(data-notification-count);
+            position: absolute;
+            right: -.125rem;
+            bottom: -.125rem;
+            background-color: var(--danger-color);
+            color: var(--danger-foreground-color);
+            font-size: .75rem;
+            font-weight: bold;
+            padding-inline: .375rem;
+            border: .25rem solid var(--bg-color-darker);
+            border-radius: 1rem;
+        }
+    }
+
+
+    .server,
+    .server img {
+        transition-property: border-radius;
+        transition-duration: .15s;
+        border-radius: var(--border-radius);
+
+        @media (prefers-reduced-motion: reduce) {
+            transition: none;
+        }
+    }
+
+    .server img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+    }
+
+}

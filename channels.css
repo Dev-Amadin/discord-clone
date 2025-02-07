@@ -1,0 +1,104 @@
+@layer layout {
+    .channels-header {
+        grid-area: channels-header;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-inline: 1rem;
+    }
+
+    .channels {
+        grid-area: channels;
+        display: flex;
+        flex-direction: column;
+        background-color: var(--bg-color-dark);
+        gap: 1rem;
+        padding: 1rem .5rem;
+    }
+}
+
+@layer components {
+    .channels-header {
+        background-color: var(--bg-color-dark);
+        color: var(--foreground-color);
+        border-bottom: 1px solid var(--bg-color-darker);
+
+        &:hover {
+            background-color: var(--bg-color-light);
+        }
+    }
+
+    .channels-header svg {
+        width: 1.5em;
+        height: 1.5em;
+    }
+
+    .channel-group {
+        display: flex;
+        flex-direction: column;
+        gap: .25rem;
+
+        &.collapsed {
+            .channel:not(.active) {
+                display: none;
+            }
+
+            .channel-group-title svg {
+               rotate: 90deg;
+            }
+        }
+    }
+
+    .channel {
+        display: flex;
+        gap: .5rem;
+        color: var(--foreground-color-dark);
+        padding: .25rem .5rem;
+        align-items: center;
+        border-radius: .25rem;
+
+
+
+        &:hover,
+        &:focus-visible {
+            background-color: var(--bg-color-light);
+            color: var(--foreground-color);
+        }
+
+        &.active {
+            background-color: var(--bg-color-light);
+            color: var(--foreground-color-light);
+        }
+
+        &.muted {
+            color: var(--foreground-color-darker);
+        }
+    }
+
+    .channel svg {
+        width: 1.25em;
+        height: 1.25em;
+    }
+
+    .channel-group-title {
+        display: flex;
+        align-items: center;
+        font-size: .75rem;
+        text-align: left;
+        text-transform: uppercase;
+        gap: .1rem;
+        color: var(--foreground-color-dark);
+        margin-inline-start: -.25em;
+
+        &:hover,
+        &:focus-visible {
+            color: var(--foreground-color);
+        }
+
+    }
+
+    .channel-group-title svg {
+        width: 1.25em;
+        height: 1.25em;
+    }
+}
